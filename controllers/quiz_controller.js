@@ -38,10 +38,8 @@ module.exports.create = async (req, res) => {
 
 module.exports.getAciveQuizzes = async (req, res) => {
     try {
-        const currentDate = new Date();
-        //console.log(currentDate);
         let activeQuizzes = await Quiz.find({
-            endDate: { $gte: currentDate }
+            status: 'active'
         });
         return res.status(200).json(activeQuizzes);
     } catch (err) {

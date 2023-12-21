@@ -21,7 +21,10 @@ const quizSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    
+    status: {
+        type: String,
+        default: "inactive"
+    }
 });
 
 const Quiz = mongoose.model('Quiz', quizSchema);
