@@ -28,6 +28,11 @@ module.exports.create = async (req, res) => {
         if (quiz.rightAnswer >= quiz.options.length) {
             return res.status(400).json({error: "right answer should be between options index"});
         }
+        let quizExists = Quiz.findOne({title: quiz.title});
+        
+        if (quizExists) {
+            return res.status(400).json({error: "This quiz already exists"});
+        }
         let validatedQuiz = new Quiz(quiz);
         await validatedQuiz.save();
         return res.status(201).json({message: "Quiz created successfully"});
