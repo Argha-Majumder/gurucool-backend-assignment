@@ -7,8 +7,8 @@ router.post('/signup',[
     check("password","Password should be a minimum of 6 characters").isLength({
         min: 6
     })
-] ,userController.create);
+] ,userController.create); // creating the user
 
-router.post('/signin', userController.signin);
+router.post('/signin', userController.signin); // signing the user
 
 module.exports = router;

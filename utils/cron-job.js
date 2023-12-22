@@ -1,10 +1,12 @@
 const cron = require('node-cron');
 const Quiz = require('../models/quizzes');
 
-cron.schedule('* * * * *', updateQuizStatus);
+cron.schedule('* * * * *', updateQuizStatus); // to update the question in every minute of every month of every week
 
 function updateQuizStatus() {
     const currentDate = new Date();
+
+    // updating quiz's status
     Quiz.find({})
     .then(quizzes => {
         quizzes.forEach((quiz)=> {

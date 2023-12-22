@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT;
 const db = require('./config/mongoose');
-require('./utils/cron-job');
+require('./utils/cron-job'); // using cron job
 
 app.use(express.json());
 app.use('/', require('./routes'));
