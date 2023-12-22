@@ -1,9 +1,11 @@
 # Quiz Application Assignment
 
-Welcome to quiz application project, where user can enroll and participate in timed quizzes. This guide will show you how to use my api in various use-cases.
+Welcome to quiz application project, where user can enroll and participate in timed quizzes. This guide will show you how to use this api in various use-cases.
 
 ## Base URL 
-```https://quiz-application-9lf2.onrender.com/```
+```
+https://quiz-application-9lf2.onrender.com/
+```
 
 ## Endpoints
 
