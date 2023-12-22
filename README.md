@@ -144,10 +144,10 @@ POST https://quiz-application-9lf2.onrender.com/quizzes
 ```
 
 #### Example Response
-If the request is successful, the API will return a 200 status code along with a JSON object representing a token.
+If the request is successful, the API will return a 200 status code along with a JSON object representing a successful message.
 ```
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpveUBnbWFpbC5jb20iLCJpYXQiOjE3MDMyNTQzNDcsImV4cCI6MTcwMzI1Nzk0N30._NhaUoqaa_PMyI59VP5NFbgTmZ9Dr-1JTbJnY9gh8qf"
+    "message": "Quiz created successfully"
 }
 ```
 
@@ -163,5 +163,186 @@ If an error occurs, the API will return an appropriate HTTP status code along wi
 ```
 {
     "error": "End date must be bigger than local date and time"
+}
+```
+```
+{
+    "error": "right answer should be between options index"
+}
+```
+
+
+### GET /quizzes/active
+In this endpoint, you can get all active questions.
+
+#### Authorization
+To authenticate your request, include your bearer token in the *Authorization* header of your request. The header should be structured as follows:
+```
+Authorization: Bearer YOUR_TOKEN_HERE
+```
+Replace *YOUR_TOKEN_HERE* with your actual bearer token. And it'll valid until 1h.
+
+#### Example Request
+```
+GET https://quiz-application-9lf2.onrender.com/quizzes/active
+```
+
+#### Example Response
+If the request is successful, the API will return a 200 status code along with a JSON object representing the quizzes that are active.
+```
+[
+    {
+        "_id": "6585a53c9c15ff9b2dc7682f",
+        "title": "Which among these is a interpreted language?",
+        "options": [
+            "C",
+            "C++",
+            "Go",
+            "JavaScript"
+        ],
+        "rightAnswer": 3,
+        "startDate": "2023-12-22T10:50:00.000Z",
+        "endDate": "2023-12-22T12:00:00.000Z",
+        "status": "active",
+        "__v": 0
+    },
+    {
+        "_id": "6585a6bb9c15ff9b2dc76859",
+        "title": "Which among these is a compiled language?",
+        "options": [
+            "C++",
+            "Python",
+            "JavaScript"
+        ],
+        "rightAnswer": 0,
+        "startDate": "2023-12-22T10:50:00.000Z",
+        "endDate": "2023-12-22T12:00:00.000Z",
+        "status": "active",
+        "__v": 0
+    }
+]
+```
+
+
+### GET /quizzes/:id/result
+In this endpoint, you can get result of a questions only after 5 mins of quiz's end time.
+
+#### Authorization
+To authenticate your request, include your bearer token in the *Authorization* header of your request. The header should be structured as follows:
+```
+Authorization: Bearer YOUR_TOKEN_HERE
+```
+Replace *YOUR_TOKEN_HERE* with your actual bearer token. And it'll valid until 1h.
+
+#### Example Request
+```
+GET https://quiz-application-9lf2.onrender.com/quizzes/6585696d41f8edfd240d1105/result
+```
+
+#### Example Response
+If the request is successful, the API will return a 200 status code along with a JSON object representing the answer of a particular quiz.
+```
+{
+    "answer": "JavaScript"
+}
+```
+
+#### Error Response
+If an error occurs, the API will return an appropriate HTTP status code along with a JSON object describing the error.
+
+#### Example Error Response
+```
+{
+    "error": "Quiz has not ended it"
+}
+```
+
+
+### GET /quizzes/all
+In this endpoint, you can get all quizzes.
+
+#### Authorization
+To authenticate your request, include your bearer token in the *Authorization* header of your request. The header should be structured as follows:
+```
+Authorization: Bearer YOUR_TOKEN_HERE
+```
+Replace *YOUR_TOKEN_HERE* with your actual bearer token. And it'll valid until 1h.
+
+#### Example Request
+```
+GET https://quiz-application-9lf2.onrender.com/quizzes/all
+```
+
+#### Example Response
+If the request is successful, the API will return a 200 status code along with a JSON object representing all quizzes.
+```
+[
+    {
+        "_id": "6585a370ba1881120ea55c53",
+        "title": "Which among these is a weakly-typed language?",
+        "options": [
+            "Java",
+            "C++",
+            "Go",
+            "JavaScript"
+        ],
+        "rightAnswer": 3,
+        "startDate": "2023-12-22T09:00:00.000Z",
+        "endDate": "2023-12-22T10:00:00.000Z",
+        "status": "finished",
+        "__v": 0
+    },
+    {
+        "_id": "6585a53c9c15ff9b2dc7682f",
+        "title": "Which among these is a interpreted language?",
+        "options": [
+            "C",
+            "C++",
+            "Go",
+            "JavaScript"
+        ],
+        "rightAnswer": 3,
+        "startDate": "2023-12-22T10:50:00.000Z",
+        "endDate": "2023-12-22T12:00:00.000Z",
+        "status": "active",
+        "__v": 0
+    },
+    {
+        "_id": "6585a6bb9c15ff9b2dc76859",
+        "title": "Which among these is a compiled language?",
+        "options": [
+            "C++",
+            "Python",
+            "JavaScript"
+        ],
+        "rightAnswer": 0,
+        "startDate": "2023-12-22T10:50:00.000Z",
+        "endDate": "2023-12-22T12:00:00.000Z",
+        "status": "active",
+        "__v": 0
+    }
+]
+```
+
+### Error related to JWT
+
+If there has no token you'll find error like this:
+
+```
+{
+    "error": "No token found"
+}
+```
+
+And if the token mismatches you'll get an error:
+```
+{
+    "message": "invalid token"
+}
+```
+Also if the token got expired you'll also get error message:
+```
+{
+    "message": "jwt expired"
 }
 ```
